@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { Flip, toast } from "react-toastify";
 
 export default function MainNavigation(props) {
   console.log("MainNav props: ", props);
@@ -8,9 +9,19 @@ export default function MainNavigation(props) {
   function LogoutHandle() {
     localStorage.removeItem("instaToken");
     props.setUser(null);
+
     setTimeout(() => {
-      history.push("/");
-    }, 1500);
+      toast.success("Çıkabildin, aferin", {
+        autoClose: 1000,
+        transition: Flip,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }, 500);
   }
 
   return (
