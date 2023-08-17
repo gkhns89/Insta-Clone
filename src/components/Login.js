@@ -3,8 +3,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { Flip, toast } from "react-toastify";
+import jwtDecode from "jwt-decode";
 
-const Login = () => {
+const Login = (props) => {
   const toastId = React.useRef(null);
   const {
     register,
@@ -12,6 +13,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  const { setUser } = props;
   const history = useHistory();
 
   const gonder = (data) => {
@@ -40,6 +42,8 @@ const Login = () => {
           autoClose: 1500,
         });
 
+        const usr = jwtDecode(response.data.token);
+        setUser(usr);
         setTimeout(() => {
           history.push("/profile");
         }, 1500);
