@@ -5,7 +5,7 @@ export default function MainNavigation(props) {
   console.log("MainNav props: ", props);
   const history = useHistory();
 
-  function LogoutHandle(props) {
+  function LogoutHandle() {
     localStorage.removeItem("instaToken");
     props.setUser(null);
     setTimeout(() => {
@@ -23,7 +23,7 @@ export default function MainNavigation(props) {
       </NavLink>
 
       {props.user ? (
-        <button onClick={() => LogoutHandle(props)}>Çıkış</button>
+        <button onClick={() => LogoutHandle()}>Çıkış</button>
       ) : (
         <NavLink to="/login" activeClassName="text-lime-600">
           Giriş
