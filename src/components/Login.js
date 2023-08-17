@@ -1,7 +1,8 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Bounce, Flip, Slide, toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
+import { Flip, toast } from "react-toastify";
 
 const Login = () => {
   const toastId = React.useRef(null);
@@ -10,6 +11,9 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const history = useHistory();
+
   const gonder = (data) => {
     //Toast başlangıç
     toastId.current = toast("Giriş Yapılıyor...", {
@@ -24,7 +28,10 @@ const Login = () => {
     });
 
     axios
-      .post("https://wit-courses.onrender.com/login", data)
+      .post("https://wit-courses.onrender.com/login", {
+        ...data,
+        duration: "1m",
+      })
       .then((response) => {
         //Localstorage kayıt
         localStorage.setItem("instaToken", response.data.token);
@@ -33,12 +40,14 @@ const Login = () => {
         toast.update(toastId.current, {
           collapseDuration: 500,
           render: "Giriş işlemi başarılı!",
-          autoClose: 2000,
+          autoClose: 1500,
         });
+
+        setTimeout(() => {
+          history.push("/profile");
+        }, 1500);
       })
       .catch((err) => console.log(err));
-
-    console.log(data);
   };
 
   console.log(errors);
@@ -63,6 +72,7 @@ const Login = () => {
             className="flex-[2] p-2 leading-[2] rounded border border-stone-700"
             type="text"
             placeholder="E-Posta"
+            autoComplete="email"
             {...register("email", {
               required: true,
               pattern:
@@ -81,6 +91,7 @@ const Login = () => {
             className="flex-[2] p-2 leading-[2] rounded border border-stone-700"
             type="password"
             placeholder="Parola"
+            autoComplete="current-password"
             {...register("password", { required: true })}
           />
         </label>

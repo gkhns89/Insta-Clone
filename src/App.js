@@ -2,8 +2,17 @@ import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import MainNavigation from "./components/MainNavigation";
 import Login from "./components/Login";
+import Profile from "./components/Profile";
+import { useState } from "react";
+import { CheckUserFrmLs } from "./utils";
 
 function App() {
+  const getUser = CheckUserFrmLs();
+  // eslint-disable-next-line
+  const [user, setUser] = useState(getUser);
+
+  console.log("Logged user:", user);
+
   return (
     <div className="container max-w-[480px] mx-auto">
       <MainNavigation />
@@ -32,7 +41,9 @@ function App() {
         </Route>
 
         <Route path="/profile">
-          <h1 className="text-3xl font-bold text-yellow-600">Profil</h1>
+
+          
+  <Profile/>
         </Route>
 
         <Route path="/login">
