@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className="container max-w-[480px] mx-auto">
-      <MainNavigation />
+      <MainNavigation user={user} setUser={setUser} />
 
       <Switch>
         <Route path="/" exact>
@@ -41,9 +41,7 @@ function App() {
         </Route>
 
         <Route path="/profile">
-
-          
-  <Profile/>
+          <Profile />
         </Route>
 
         <Route path="/login">

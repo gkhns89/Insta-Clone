@@ -28,10 +28,7 @@ const Login = () => {
     });
 
     axios
-      .post("https://wit-courses.onrender.com/login", {
-        ...data,
-        duration: "1m",
-      })
+      .post("https://wit-courses.onrender.com/login", data)
       .then((response) => {
         //Localstorage kayıt
         localStorage.setItem("instaToken", response.data.token);
